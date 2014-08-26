@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+  <property name="LOG_DIR" value="build/log" />
+  <property name="LOG_LEVEL" value="DEBUG" />
+
+  <appender name="STDOUT"
+    class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>
+        %d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+     </pattern>
+    </encoder>
+  </appender>
+
+
+  <!--
+      <pattern>%d %-5p %c{1} - %m%n</pattern>
+      <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+
+  -->
+  <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+    <file>${LOG_DIR}/all.log</file>
+    <append>true</append>
+    <encoder>
+      <pattern>%d %-5p %c{1} - %m%n</pattern>
+    </encoder>
+  </appender>
+
+  <appender name="MTFILE" class="ch.qos.logback.core.FileAppender">
+    <file>${LOG_DIR}/mt.log</file>
+    <append>true</append>
+    <encoder>
+      <pattern>%d %-5p %c{1} - %m%n</pattern>
+    </encoder>
+  </appender>
+
+  <logger name="com.tkmtwo.mt" level="${LOG_LEVEL}" additivity="false">
+    <appender-ref ref="MTFILE" />
+  </logger>
+  <logger name="org.springframework" level="${LOG_LEVEL}" additivity="false">
+    <appender-ref ref="FILE" />
+  </logger>
+  <logger name="org.apache" level="${LOG_LEVEL}" additivity="false">
+    <appender-ref ref="FILE" />
+  </logger>
+  <logger name="net.sourceforge.jtds" level="${LOG_LEVEL}" additivity="false">
+    <appender-ref ref="FILE" />
+  </logger>
+
+
+  <root level="OFF">
+    <appender-ref ref="STDOUT" />
+  </root>
+
+
+
+</configuration>

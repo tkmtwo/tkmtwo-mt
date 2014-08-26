@@ -1,0 +1,45 @@
+
+
+apply plugin: 'java'
+apply plugin: 'maven'
+
+apply from: 'https://raw.github.com/tkmtwo/tkmtwo-build/master/gradle/dependency-versions.gradle'
+apply from: 'https://raw.github.com/tkmtwo/tkmtwo-build/master/gradle/configurations-exclude-jcl-log4j.gradle'
+apply from: 'https://raw.github.com/tkmtwo/tkmtwo-build/master/gradle/jar-api.gradle'
+apply from: 'https://raw.github.com/tkmtwo/tkmtwo-build/master/gradle/javadoc.gradle'
+apply from: 'https://raw.github.com/tkmtwo/tkmtwo-build/master/gradle/compilejava-lint.gradle'
+
+apply from: 'https://raw.github.com/tkmtwo/tkmtwo-build/master/gradle/checkstyle.gradle'
+apply from: 'https://raw.github.com/tkmtwo/tkmtwo-build/master/gradle/findbugs.gradle'
+
+dependencies {
+  compile "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
+  compile "com.google.guava:guava:${guavaVersion}"
+  compile "joda-time:joda-time:${jodaTimeVersion}"
+  compile "org.slf4j:slf4j-api:${slf4jVersion}"
+  compile "org.springframework.security:spring-security-config:${springSecurityVersion}"
+  compile "org.springframework.security:spring-security-core:${springSecurityVersion}"
+  compile "org.springframework:spring-context:${springFrameworkVersion}"
+  compile "org.springframework:spring-test:${springFrameworkVersion}"
+
+  runtime "ch.qos.logback:logback-classic:${logbackVersion}"
+  runtime "ch.qos.logback:logback-core:${logbackVersion}"
+  runtime "org.slf4j:jcl-over-slf4j:${slf4jVersion}"
+  runtime "org.slf4j:jul-to-slf4j:${slf4jVersion}"
+  runtime "org.slf4j:log4j-over-slf4j:${slf4jVersion}"
+
+
+  testCompile "junit:junit:${junitVersion}"
+  testCompile "org.mockito:mockito-core:${mockitoVersion}"
+
+
+}
+
+uploadArchives {
+  repositories {
+    mavenDeployer {
+      repository(url: "file://$buildDir/repo")
+      //repository(url: "file:///C:/gits/tkmtwo-mvn-repo/release")
+    }
+  }
+}
